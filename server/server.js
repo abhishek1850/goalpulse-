@@ -41,14 +41,10 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'GoalPulse API is running' });
 });
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
-  });
-}
+// Root route
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'GoalPulse Backend API is running. Please use the Vercel frontend URL to access the application.' });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
